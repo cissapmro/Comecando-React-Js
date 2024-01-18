@@ -1,23 +1,29 @@
-function App() {
-  return(
-    <div>
-      oi
-    </div>
-  );
-}
-  export default App;
+import { useEffect, useState } from "react";
+
 //PRATICANDO
-/*function App() {
+function App() {
 
   const [input, setInput] = useState('');
  const [tarefas, setTarefas] = useState([
     'Estudar hoje a noite',
     'Orar muito e agradecer'
  ]);
+ //useEffect - ciclo de vida - 
+ //Quando abrir o componente, pegar tudo que tem no localStorage.
+ useEffect(() => {
+    const tarefasStorage = localStorage.getItem('@tarefa');
+    if(tarefasStorage) {
+      setTarefas(JSON.parse(tarefasStorage)) // transforma em array  //atualiza a lista de tarefas
+    } 
+ }, []);
+//Quando carregar o componente guarda em localStorage o que foi alterado em tarefas.
+useEffect(() => {
+  localStorage.setItem('@tarefa', JSON.stringify(tarefas)); //chave tarefa e transforma em string o array de tarefas.
+},[tarefas]); //salvar toda vez que tarefas sofrer alteração
 
   const handleSubmit = (e) =>{
     e.preventDefault();
-    alert('Enviado com sucesso');
+    //alert('Enviado com sucesso');
     setTarefas([...tarefas, input]); //pega a lista de tarefas e envia a tarefa que está no input
     setInput('');
   }
@@ -46,7 +52,7 @@ function App() {
     </div>
   );
 }
-export default App;*/
+export default App;
 
 //MANIPULANDO FORMULÁRIO
 /*function App() {
